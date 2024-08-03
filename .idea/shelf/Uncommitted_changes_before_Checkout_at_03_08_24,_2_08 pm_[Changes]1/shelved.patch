@@ -1,0 +1,303 @@
+Index: src/test/java/coreFunctions/CoreFunctions.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package coreFunctions;\n\nimport org.openqa.selenium.WebElement;\n\npublic class CoreFunctions {\n\t\n\tpublic static void click(WebElement element, String name) {\n\t\ttry {\n\t\t\telement.click();\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t}\n\t}\n\t\n\tpublic static void sendKeys(WebElement element, String text) {\n\t\ttry {\n\t\t\telement.sendKeys(text);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t}\n\t}\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/coreFunctions/CoreFunctions.java b/src/test/java/coreFunctions/CoreFunctions.java
+--- a/src/test/java/coreFunctions/CoreFunctions.java	
++++ b/src/test/java/coreFunctions/CoreFunctions.java	
+@@ -1,9 +1,18 @@
+ package coreFunctions;
+ 
++import org.openqa.selenium.By;
+ import org.openqa.selenium.WebElement;
++import org.openqa.selenium.support.ui.ExpectedConditions;
++import org.openqa.selenium.support.ui.WebDriverWait;
++import org.testng.Assert;
++
++import java.time.Duration;
++import java.util.Random;
++
++import static hooks.Hooks.driver;
+ 
+ public class CoreFunctions {
+-	
++
+ 	public static void click(WebElement element, String name) {
+ 		try {
+ 			element.click();
+@@ -11,7 +20,7 @@
+ 			e.printStackTrace();
+ 		}
+ 	}
+-	
++
+ 	public static void sendKeys(WebElement element, String text) {
+ 		try {
+ 			element.sendKeys(text);
+@@ -20,4 +29,27 @@
+ 		}
+ 	}
+ 
+-}
++	public static WebElement getElement(String locator) {
++		WebElement element = null;
++		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
++		element= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
++		return element;
++	}
++
++	public static void verifyElementPresent(String locator){
++		WebElement element= getElement(locator);
++		boolean elementPresent= element.isDisplayed();
++		if (elementPresent){
++			Assert.assertTrue(true);
++		}else {
++			Assert.fail();
++		}
++	}
++
++	public static long getRandomNumber(){
++		Random rand= new Random();
++		long randomNumber= rand.nextInt(1000);
++		return randomNumber;
++	}
++
++}
+\ No newline at end of file
+Index: src/test/resources/features/CreateCases.feature
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/resources/features/CreateCases.feature b/src/test/resources/features/CreateCase.feature
+rename from src/test/resources/features/CreateCases.feature
+rename to src/test/resources/features/CreateCase.feature
+--- a/src/test/resources/features/CreateCases.feature	
++++ b/src/test/resources/features/CreateCase.feature	
+@@ -7,7 +7,7 @@
+     Then user is redirected to the application dashboard page
+ 
+ 
+-    Scenario: Verify that user is able to create a new Case
++    Scenario: Verify that user is able to create new Case
+       When user hovers over the case icon
+       And user clicks on the Case plus icon
+       Then user is redirected to the Create New Case page
+Index: src/test/java/stepDefinitions/LoginSD.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package stepDefinitions;\n\nimport java.io.IOException;\nimport java.sql.Driver;\nimport java.time.Duration;\n\nimport org.openqa.selenium.By;\nimport org.openqa.selenium.WebDriver;\nimport org.openqa.selenium.support.ui.ExpectedConditions;\nimport org.openqa.selenium.support.ui.WebDriverWait;\n\nimport coreFunctions.CoreFunctions;\nimport hooks.Hooks;\nimport io.cucumber.java.en.And;\nimport io.cucumber.java.en.Given;\nimport io.cucumber.java.en.Then;\nimport io.cucumber.java.en.When;\nimport junit.framework.Assert;\nimport pageObjects.HomePagePO;\nimport pageObjects.LoginPagePO;\nimport utilities.PropertiesFileReader;\n\npublic class LoginSD {\n\t\n\tfinal String filePath = \"./src/test/java/properties/config.properties\";\n\tPropertiesFileReader pfr = new PropertiesFileReader(filePath);\n\tLoginPagePO loginPagePO;\n\tHomePagePO homePagePO;\n\tCoreFunctions coreFunctions = new CoreFunctions();\n//\tWebDriverWait wait = new WebDriverWait(Hooks.getDriver(), Duration.ofSeconds(20));\n\t\n\t@Given(\"user is presnet on the login page of the application\")\n\tpublic void user_is_presnet_on_the_login_page_of_the_application() {\n\t\tString url=\"\";\n\t\ttry {\n\t\t\turl = pfr.properties().getProperty(\"appUrl\");\n\t\t} catch (IOException e) {\n\t\t\t// TODO Auto-generated catch block\n\t\t\te.printStackTrace();\n\t\t}\n\t    Hooks.getDriver().get(url);\n\t}\n\n\t@When(\"user enters the valid credentials\")\n\tpublic void user_enters_the_valid_credentials() {\n\t\t\n//\t\twait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(\"//input[@placeholder='Username']\")));\n\t    try {\n\t\t\tcoreFunctions.sendKeys(loginPagePO.username(), pfr.properties().getProperty(\"username\"));\n\t\t\tcoreFunctions.sendKeys(loginPagePO.password(), pfr.properties().getProperty(\"password\"));\n\t\t} catch (IOException e) {\n\t\t\t// TODO Auto-generated catch block\n\t\t\te.printStackTrace();\n\t\t}\n\t    \n\t}\n\n\t@And(\"user clicks on the login button\")\n\tpublic void user_clicks_on_the_login_button() {\n\t    coreFunctions.click(loginPagePO.loginButton(), \"Login\");\n\t}\n\n\t@SuppressWarnings(\"deprecation\")\n\t@Then(\"user is redirected to the application dashboard page\")\n\tpublic void user_is_redirected_to_the_application_dashboard_page() {\n\t\tString acturlString = Hooks.getDriver().getCurrentUrl();\n\t\tString expurlString = null;\n\t\ttry {\n\t\t\texpurlString = pfr.properties().getProperty(\"appUrl\");\n\t\t} catch (IOException e) {\n\t\t\t// TODO Auto-generated catch block\n\t\t\te.printStackTrace();\n\t\t}\n\t    Assert.assertEquals(expurlString, acturlString);\n\t    homePagePO = new HomePagePO();\n\t    coreFunctions.click(homePagePO.formClose(), \"Form Close button\");\n\t}\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/stepDefinitions/LoginSD.java b/src/test/java/stepDefinitions/LoginSD.java
+--- a/src/test/java/stepDefinitions/LoginSD.java	
++++ b/src/test/java/stepDefinitions/LoginSD.java	
+@@ -29,8 +29,8 @@
+ 	CoreFunctions coreFunctions = new CoreFunctions();
+ //	WebDriverWait wait = new WebDriverWait(Hooks.getDriver(), Duration.ofSeconds(20));
+ 	
+-	@Given("user is presnet on the login page of the application")
+-	public void user_is_presnet_on_the_login_page_of_the_application() {
++	@Given("user is present on the login page of the application")
++	public void user_is_present_on_the_login_page_of_the_application() {
+ 		String url="";
+ 		try {
+ 			url = pfr.properties().getProperty("appUrl");
+Index: target/classes/META-INF/MANIFEST.MF
+===================================================================
+diff --git a/target/classes/META-INF/MANIFEST.MF b/target/classes/META-INF/MANIFEST.MF
+deleted file mode 100644
+--- a/target/classes/META-INF/MANIFEST.MF	
++++ /dev/null	
+@@ -1,5 +0,0 @@
+-Manifest-Version: 1.0
+-Built-By: rishabhsikka
+-Build-Jdk: 17.0.5
+-Created-By: Maven Integration for Eclipse
+-
+Index: target/classes/META-INF/maven/selenium.cucumber/selenium.cucumber/pom.xml
+===================================================================
+diff --git a/target/classes/META-INF/maven/selenium.cucumber/selenium.cucumber/pom.xml b/target/classes/META-INF/maven/selenium.cucumber/selenium.cucumber/pom.xml
+deleted file mode 100644
+--- a/target/classes/META-INF/maven/selenium.cucumber/selenium.cucumber/pom.xml	
++++ /dev/null	
+@@ -1,73 +0,0 @@
+-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+-	<modelVersion>4.0.0</modelVersion>
+-	<groupId>selenium.cucumber</groupId>
+-	<artifactId>selenium.cucumber</artifactId>
+-	<version>0.0.1-SNAPSHOT</version>
+-	<dependencies>
+-		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+-		<dependency>
+-			<groupId>org.seleniumhq.selenium</groupId>
+-			<artifactId>selenium-java</artifactId>
+-			<version>4.23.0</version>
+-		</dependency>
+-		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+-		<dependency>
+-			<groupId>org.testng</groupId>
+-			<artifactId>testng</artifactId>
+-			<version>7.9.0</version>
+-			<scope>test</scope>
+-		</dependency>
+-		<dependency>
+-			<groupId>io.cucumber</groupId>
+-			<artifactId>cucumber-java</artifactId>
+-			<version>7.15.0</version>
+-			<scope>test</scope>
+-		</dependency>
+-		<dependency>
+-			<groupId>io.cucumber</groupId>
+-			<artifactId>cucumber-junit</artifactId>
+-			<version>7.15.0</version>
+-			<scope>test</scope>
+-		</dependency>
+-		<dependency>
+-			<groupId>tech.grasshopper</groupId>
+-			<artifactId>extentreports-cucumber7-adapter</artifactId>
+-			<version>1.14.0</version>
+-		</dependency>
+-		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+-		<dependency>
+-			<groupId>org.apache.logging.log4j</groupId>
+-			<artifactId>log4j-core</artifactId>
+-			<version>2.22.1</version>
+-		</dependency>
+-		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+-		<dependency>
+-			<groupId>org.apache.logging.log4j</groupId>
+-			<artifactId>log4j-api</artifactId>
+-			<version>2.22.1</version>
+-		</dependency>
+-	</dependencies>
+-	<build>
+-		<plugins>
+-			<plugin>
+-				<groupId>org.apache.maven.plugins</groupId>
+-				<artifactId>maven-compiler-plugin</artifactId>
+-				<version>3.12.1</version>
+-				<configuration>
+-					<source>1.8</source>
+-					<target>1.8</target>
+-				</configuration>
+-			</plugin>
+-			<plugin>
+-				<groupId>org.apache.maven.plugins</groupId>
+-				<artifactId>maven-surefire-plugin</artifactId>
+-				<version>3.2.5</version>
+-				<configuration>
+-					<includes>
+-						<include>**/*Runner.java</include>
+-					</includes>
+-				</configuration>
+-			</plugin>
+-		</plugins>
+-	</build>
+-</project>
+\ No newline at end of file
+Index: target/test-classes/properties/config.properties
+===================================================================
+diff --git a/target/test-classes/properties/config.properties b/target/test-classes/properties/config.properties
+deleted file mode 100644
+--- a/target/test-classes/properties/config.properties	
++++ /dev/null	
+@@ -1,3 +0,0 @@
+-appUrl=https://ui.cogmento.com/
+-username=jasonherald12@gmail.com
+-password=Acid@123
+\ No newline at end of file
+Index: target/classes/META-INF/maven/selenium.cucumber/selenium.cucumber/pom.properties
+===================================================================
+diff --git a/target/classes/META-INF/maven/selenium.cucumber/selenium.cucumber/pom.properties b/target/classes/META-INF/maven/selenium.cucumber/selenium.cucumber/pom.properties
+deleted file mode 100644
+--- a/target/classes/META-INF/maven/selenium.cucumber/selenium.cucumber/pom.properties	
++++ /dev/null	
+@@ -1,7 +0,0 @@
+-#Generated by Maven Integration for Eclipse
+-#Thu Aug 01 10:17:09 IST 2024
+-m2e.projectLocation=C\:\\Users\\rishabhsikka\\eclipse-workspace\\selenium.cucumber
+-m2e.projectName=selenium.cucumber
+-groupId=selenium.cucumber
+-artifactId=selenium.cucumber
+-version=0.0.1-SNAPSHOT
+Index: target/test-classes/features/CreateContact.feature
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>Feature: Contact creation\n\n  Background: \n    Given user is presnet on the login page of the application\n    When user enters the valid credentials\n    And user clicks on the login button\n    Then user is redirected to the application dashboard page\n\n  Scenario: Verify that user is able to create a contact\n  When user hovers over the contacts icon\n  And user clicks on the Contacts plus icon\n  Then user is redirected to the Create New Contact page\n  When user fills first name\n  And user fills the last name\n  And user fills the middle name\n  And user searches and selects a company\n  And user searches and selects a tag\n  And user enters the email\n  And user selects the category\n  And user selects the status\n  And user enters the description\n  And user enters the twitter handle\n  And user enters the address\n  And user enter the phone number\n  And user enters the position\n  And user enters the department\n  And user searches and selects the supervisor\n  And user searches and selects the assistant\n  And user searches and selects the referred by\n  And user selects the Source\n  And user selects do not call, do not text and do not email toggle\n  And user enters the birthday\n  And user enters the identifier and uploads the image\n  And clicks on save button\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/test-classes/features/CreateContact.feature b/target/test-classes/features/CreateContact.feature
+--- a/target/test-classes/features/CreateContact.feature	
++++ b/target/test-classes/features/CreateContact.feature	
+@@ -1,7 +1,7 @@
+ Feature: Contact creation
+ 
+   Background: 
+-    Given user is presnet on the login page of the application
++    Given user is present on the login page of the application
+     When user enters the valid credentials
+     And user clicks on the login button
+     Then user is redirected to the application dashboard page
+Index: target/test-classes/features/Login.feature
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\nFeature: FreeCRM Login\n\n  Scenario: Verify that user is able to login with valid credentials\n    Given user is presnet on the login page of the application\n    When user enters the valid credentials\n    And user clicks on the login button\n    Then user is redirected to the application dashboard page\n    
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/test-classes/features/Login.feature b/target/test-classes/features/Login.feature
+--- a/target/test-classes/features/Login.feature	
++++ b/target/test-classes/features/Login.feature	
+@@ -2,7 +2,7 @@
+ Feature: FreeCRM Login
+ 
+   Scenario: Verify that user is able to login with valid credentials
+-    Given user is presnet on the login page of the application
++    Given user is present on the login page of the application
+     When user enters the valid credentials
+     And user clicks on the login button
+     Then user is redirected to the application dashboard page
+Index: src/test/resources/features/CreateContact.feature
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>Feature: Contact creation\n\n  Background: \n    Given user is presnet on the login page of the application\n    When user enters the valid credentials\n    And user clicks on the login button\n    Then user is redirected to the application dashboard page\n\n  Scenario: Verify that user is able to create a contact\n  When user hovers over the contacts icon\n  And user clicks on the Contacts plus icon\n  Then user is redirected to the Create New Contact page\n  When user fills first name\n  And user fills the last name\n  And user fills the middle name\n  And user searches and selects a company\n  And user searches and selects a tag\n  And user enters the email\n  And user selects the category\n  And user selects the status\n  And user enters the description\n  And user enters the twitter handle\n  And user enters the address\n  And user enter the phone number\n  And user enters the position\n  And user enters the department\n  And user searches and selects the supervisor\n  And user searches and selects the assistant\n  And user searches and selects the referred by\n  And user selects the Source\n  And user selects do not call, do not text and do not email toggle\n  And user enters the birthday\n  And user enters the identifier and uploads the image\n  And clicks on save button\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/resources/features/CreateContact.feature b/src/test/resources/features/CreateContact.feature
+--- a/src/test/resources/features/CreateContact.feature	
++++ b/src/test/resources/features/CreateContact.feature	
+@@ -1,7 +1,7 @@
+ Feature: Contact creation
+ 
+   Background: 
+-    Given user is presnet on the login page of the application
++    Given user is present on the login page of the application
+     When user enters the valid credentials
+     And user clicks on the login button
+     Then user is redirected to the application dashboard page
+Index: src/test/resources/features/Login.feature
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\nFeature: FreeCRM Login\n\n  Scenario: Verify that user is able to login with valid credentials\n    Given user is presnet on the login page of the application\n    When user enters the valid credentials\n    And user clicks on the login button\n    Then user is redirected to the application dashboard page\n    
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/resources/features/Login.feature b/src/test/resources/features/Login.feature
+--- a/src/test/resources/features/Login.feature	
++++ b/src/test/resources/features/Login.feature	
+@@ -2,7 +2,7 @@
+ Feature: FreeCRM Login
+ 
+   Scenario: Verify that user is able to login with valid credentials
+-    Given user is presnet on the login page of the application
++    Given user is present on the login page of the application
+     When user enters the valid credentials
+     And user clicks on the login button
+     Then user is redirected to the application dashboard page
