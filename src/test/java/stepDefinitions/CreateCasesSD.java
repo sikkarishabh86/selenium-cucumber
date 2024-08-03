@@ -28,7 +28,7 @@ public class CreateCasesSD extends CoreFunctions{
 
     @Then("user is redirected to the Create New Case page")
     public void userIsRedirectedToTheCreateNewCasePage() {
-        CoreFunctions.verifyElementPresent(CasesPagePO.createNewCase);
+        verifyElementPresent(CasesPagePO.createNewCase);
         String caseCreationHeading= getElement(CasesPagePO.createNewCase).getText();
         Assert.assertEquals(caseCreationHeading, "Create new Case");
 
