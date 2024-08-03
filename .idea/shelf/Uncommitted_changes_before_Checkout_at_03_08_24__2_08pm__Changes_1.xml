@@ -1,0 +1,49 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_03_08_24,_2_08 pm_[Changes]1" date="1722674322064" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_08_24,_2_08 pm_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 03/08/24, 2:08 pm [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/test-classes/runner/TestRunner.class" />
+    <option name="AFTER_PATH" value="target/test-classes/runner/TestRunner.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_08_24,_2_08 pm_[Changes]1/TestRunner.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/test-classes/pageObjects/LoginPagePO.class" />
+    <option name="AFTER_PATH" value="target/test-classes/pageObjects/LoginPagePO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_08_24,_2_08 pm_[Changes]1/LoginPagePO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/test-classes/stepDefinitions/LoginSD.class" />
+    <option name="AFTER_PATH" value="target/test-classes/stepDefinitions/LoginSD.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_08_24,_2_08 pm_[Changes]1/LoginSD.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/test-classes/utilities/PropertiesFileReader.class" />
+    <option name="AFTER_PATH" value="target/test-classes/utilities/PropertiesFileReader.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_08_24,_2_08 pm_[Changes]1/PropertiesFileReader.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/test-classes/pageObjects/HomePagePO.class" />
+    <option name="AFTER_PATH" value="target/test-classes/pageObjects/HomePagePO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_08_24,_2_08 pm_[Changes]1/HomePagePO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/test-classes/utilities/CommonWait.class" />
+    <option name="AFTER_PATH" value="target/test-classes/utilities/CommonWait.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_08_24,_2_08 pm_[Changes]1/CommonWait.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/test-classes/hooks/Hooks.class" />
+    <option name="AFTER_PATH" value="target/test-classes/hooks/Hooks.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_08_24,_2_08 pm_[Changes]1/Hooks.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/test-classes/coreFunctions/CoreFunctions.class" />
+    <option name="AFTER_PATH" value="target/test-classes/coreFunctions/CoreFunctions.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_08_24,_2_08 pm_[Changes]1/CoreFunctions.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/test-classes/stepDefinitions/CreateContactSD.class" />
+    <option name="AFTER_PATH" value="target/test-classes/stepDefinitions/CreateContactSD.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_08_24,_2_08 pm_[Changes]1/CreateContactSD.class" />
+  </binary>
+</changelist>

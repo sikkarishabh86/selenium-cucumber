@@ -29,8 +29,8 @@ public class LoginSD {
 	CoreFunctions coreFunctions = new CoreFunctions();
 //	WebDriverWait wait = new WebDriverWait(Hooks.getDriver(), Duration.ofSeconds(20));
 	
-	@Given("user is presnet on the login page of the application")
-	public void user_is_presnet_on_the_login_page_of_the_application() {
+	@Given("user is present on the login page of the application")
+	public void user_is_present_on_the_login_page_of_the_application() {
 		String url="";
 		try {
 			url = pfr.properties().getProperty("appUrl");
