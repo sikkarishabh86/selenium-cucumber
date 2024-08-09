@@ -9,12 +9,22 @@ import utilities.CommonWait;
 
 public class HomePagePO {
 	
-	CommonWait commonWait = new CommonWait();
-	
 	public static WebElement formClose() {
 		String formCloseButton = "//div[text()='Please complete our Survey']/../i";
 		CommonWait.waitForPresence(formCloseButton);
 		return Hooks.getDriver().findElement(By.xpath(formCloseButton));
+	}
+	
+	public static WebElement contactsButton() {
+		String contactsButton = "//a[@href='/contacts']";
+		CommonWait.waitForPresence(contactsButton);
+		return Hooks.getDriver().findElement(By.xpath(contactsButton));
+	}
+	
+	public static WebElement contactsPlusIcon() {
+		String contactsPlusIcon = "//a[@href='/contacts']/../button";
+		CommonWait.waitForPresence(contactsPlusIcon);
+		return Hooks.getDriver().findElement(By.xpath(contactsPlusIcon));
 	}
 
 }

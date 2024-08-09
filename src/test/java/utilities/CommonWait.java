@@ -15,5 +15,11 @@ public class CommonWait {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
 		return wait;
 	}
+	
+	public static WebDriverWait waitForClickable(String locator) {
+		WebDriverWait wait = new WebDriverWait(Hooks.getDriver(), Duration.ofSeconds(20));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+		return wait;
+	}
 
 }
