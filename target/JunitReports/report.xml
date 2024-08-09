@@ -1,42 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="10.444" tests="1" skipped="0" failures="1" errors="0">
-<testcase classname="Contact creation" name="Verify that user is able to create a contact" time="10.252">
-<failure type="io.cucumber.java.PendingException" message="TODO: implement me">
-<![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at stepDefinitions.CreateContactSD.user_hovers_over_the_contacts_icon(CreateContactSD.java:20)
-	at ✽.user hovers over the contacts icon(file:///C:/Users/rishabhsikka/eclipse-workspace/selenium.cucumber/src/test/resources/features/CreateContact.feature:10)
-]]>
-</failure>
+<testsuite name="Cucumber" time="29.51" tests="1" skipped="0" failures="0" errors="0">
+<testcase classname="Contact creation" name="Verify that user is able to create a contact" time="29.244">
 <system-out><![CDATA[
-Given user is presnet on the login page of the application..................passed
+Given user is present on the login page of the application..................passed
 When user enters the valid credentials......................................passed
 And user clicks on the login button.........................................passed
 Then user is redirected to the application dashboard page...................passed
-When user hovers over the contacts icon.....................................pending
-And user clicks on the Contacts plus icon...................................skipped
-Then user is redirected to the Create New Contact page......................skipped
-When user fills first name..................................................skipped
-And user fills the last name................................................skipped
-And user fills the middle name..............................................skipped
-And user searches and selects a company.....................................skipped
-And user searches and selects a tag.........................................skipped
-And user enters the email...................................................skipped
-And user selects the category...............................................skipped
-And user selects the status.................................................skipped
-And user enters the description.............................................skipped
-And user enters the twitter handle..........................................skipped
-And user enters the address.................................................skipped
-And user enter the phone number.............................................skipped
-And user enters the position................................................skipped
-And user enters the department..............................................skipped
-And user searches and selects the supervisor................................skipped
-And user searches and selects the assistant.................................skipped
-And user searches and selects the referred by...............................skipped
-And user selects the Source.................................................skipped
-And user selects do not call, do not text and do not email toggle...........skipped
-And user enters the birthday................................................skipped
-And user enters the identifier and uploads the image........................skipped
-And clicks on save button...................................................skipped
+When user hovers over the contacts icon.....................................passed
+And user clicks on the Contacts plus icon...................................passed
+Then user is redirected to the Create New Contact page......................passed
+When user fills first name..................................................passed
+And user fills the last name................................................passed
+And user fills the middle name..............................................passed
+And user searches and selects a company.....................................passed
+And user searches and selects a tag.........................................passed
+And user enters the email...................................................passed
+And user selects the category...............................................passed
+And user selects the status.................................................passed
+And user enters the description.............................................passed
+And user enters the twitter handle..........................................passed
+And user enters the address.................................................passed
+And user enter the phone number.............................................passed
+And user enters the position................................................passed
+And user enters the department..............................................passed
+And user searches and selects the supervisor................................passed
+And user searches and selects the assistant.................................passed
+And user searches and selects the referred by...............................passed
+And user selects the Source.................................................passed
+And user selects do not call, do not text and do not email toggle...........passed
+And user enters the birthday................................................passed
+And user enters the identifier and uploads the image........................passed
+And clicks on save button...................................................passed
 ]]></system-out>
 </testcase>
 </testsuite>
